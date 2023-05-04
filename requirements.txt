@@ -2,3 +2,4 @@ aiohttp
 marshmallow
 marshmallow_dataclass
 asyncio
+python-dotenv
