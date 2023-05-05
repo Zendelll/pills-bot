@@ -22,9 +22,9 @@ class Worker:
 
     async def handle_update(self, upd: UpdateObj):
         text = upd.message.text
-        get_me = await self.pills_client.get_me(upd.message.from_.username)
+        get_user_state = await self.pills_client.get_user_state(upd.message.from_.username)
         try: 
-            state = get_me["user_state"]
+            state = get_user_state["user_state"]
         except:
             state = ""
         print(state)
@@ -83,7 +83,6 @@ async def addPills(upd: UpdateObj, state: str, tg_client: TgClient, pills_client
     message = upd.message.text
     if state == "addPills_choiceRetry" or state == "addPills_countRetry" or not state.__contains__("addPills") :
         pills = await pills_client.get_me(login)
-        pills.pop("user_state")
         i = 0
         buttons = []
         button = []
@@ -136,7 +135,6 @@ async def safeAddPills(upd: UpdateObj, state: str, tg_client: TgClient, pills_cl
     message = upd.message.text
     if state == "safeAddPills_choiceRetry" or state == "safeAddPills_countRetry" or not state.__contains__("safeAddPills") :
         pills = await pills_client.get_me(login)
-        pills.pop("user_state")
         i = 0
         buttons = []
         button = []
@@ -196,7 +194,6 @@ async def setMed(upd: UpdateObj, state: str, tg_client: TgClient, pills_client: 
         await pills_client.user_state(login, "setMed_nameChoice")
     elif state == "setMed_nameChoice":
         pills = await pills_client.get_me(login)
-        pills.pop("user_state")
         exsisting_pills = []
         for pill, cont in pills.items():
             exsisting_pills.append(pill)
@@ -247,7 +244,6 @@ async def deleteMed(upd: UpdateObj, state: str, tg_client: TgClient, pills_clien
     message = upd.message.text
     if state == "deleteMed_Retry" or not state.__contains__("deleteMed") :
         pills = await pills_client.get_me(login)
-        pills.pop("user_state")
         i = 0
         buttons = []
         button = []
