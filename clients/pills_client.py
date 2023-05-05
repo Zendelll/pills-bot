@@ -20,6 +20,12 @@ class PillsClient:
             async with session.get(url) as resp:
                 return await resp.json()
     
+    async def get_user_state(self, login: str) -> dict:
+        url = self.get_url(f"get_user_state?login={login}")
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                return await resp.json()
+    
     async def user_state(self, login: str, state: str) -> dict:
         url = self.get_url(f"user_state")
         payload = {
